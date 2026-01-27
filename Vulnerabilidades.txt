@@ -1,0 +1,68 @@
+@echo off
+title Correccion de Vulnerabilidades
+echo --------------------------------------------------------------------
+echo Lista de Vulnerabilidades a Corregir
+echo --------------------------------------------------------------------
+echo - 7zip
+echo - GLPI Agent
+echo - VLC
+echo - Forticlient
+echo - Windows 11
+echo --------------------------------------------------------------------
+pause
+cls
+echo --------------------------------------------------------------------
+echo Comenzando Descarga y Actualizacion
+echo --------------------------------------------------------------------
+powershell -Command Invoke-WebRequest -Uri "https://7-zip.org/a/7z2501-x64.msi" -OutFile "C:\TI\7zip-x64.msi"
+msiexec /i C:\TI\7zip-x64.msi /quiet
+echo --------------------------------------------------------------------
+powershell -Command Invoke-WebRequest -Uri "https://github.com/glpi-project/glpi-agent/releases/download/1.15/GLPI-Agent-1.15-x64.msi" -OutFile "C:\TI\GLPI-Agent.msi"
+msiexec /i C:\TI\GLPI-Agent.msi /quiet SERVER="https://glpi.deltaproyectos.mx/front/inventory.php"
+echo --------------------------------------------------------------------
+powershell -Command Invoke-WebRequest -Uri "https://southfront.mm.fcix.net/videolan-ftp/vlc/3.0.23/win64/vlc-3.0.23-win64.msi" -OutFile "C:\TI\vlc-win64.msi"
+msiexec /i C:\TI\vlc-win64.msi /quiet
+echo --------------------------------------------------------------------
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.001" -OutFile "C:\TI\FCVPN.7z.001"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.002" -OutFile "C:\TI\FCVPN.7z.002"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.003" -OutFile "C:\TI\FCVPN.7z.003"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.004" -OutFile "C:\TI\FCVPN.7z.004"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.005" -OutFile "C:\TI\FCVPN.7z.005"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.006" -OutFile "C:\TI\FCVPN.7z.006"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.007" -OutFile "C:\TI\FCVPN.7z.007"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.008" -OutFile "C:\TI\FCVPN.7z.008"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.009" -OutFile "C:\TI\FCVPN.7z.009"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.010" -OutFile "C:\TI\FCVPN.7z.010"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.011" -OutFile "C:\TI\FCVPN.7z.011"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.012" -OutFile "C:\TI\FCVPN.7z.012"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.013" -OutFile "C:\TI\FCVPN.7z.013"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.014" -OutFile "C:\TI\FCVPN.7z.014"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.015" -OutFile "C:\TI\FCVPN.7z.015"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.016" -OutFile "C:\TI\FCVPN.7z.016"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/blob/main/FCVPN.7z.017" -OutFile "C:\TI\FCVPN.7z.017"
+"C:\Program Files\7-Zip\7z.exe" x C:\TI\FCVPN.7z.001 -oC:\TI
+del C:\TI\FCVPN.7z.001
+del C:\TI\FCVPN.7z.002
+del C:\TI\FCVPN.7z.003
+del C:\TI\FCVPN.7z.004
+del C:\TI\FCVPN.7z.005
+del C:\TI\FCVPN.7z.006
+del C:\TI\FCVPN.7z.007
+del C:\TI\FCVPN.7z.008
+del C:\TI\FCVPN.7z.009
+del C:\TI\FCVPN.7z.010
+del C:\TI\FCVPN.7z.011
+del C:\TI\FCVPN.7z.012
+del C:\TI\FCVPN.7z.013
+del C:\TI\FCVPN.7z.014
+del C:\TI\FCVPN.7z.015
+del C:\TI\FCVPN.7z.016
+del C:\TI\FCVPN.7z.017
+msiexec /i C:\TI\FCVPN.msi /quiet
+echo --------------------------------------------------------------------
+powershell -Command Invoke-WebRequest -Uri "https://download.microsoft.com/download/db8267b0-3e86-4254-82c7-a127878a9378/Windows11InstallationAssistant.exe" -OutFile "C:\TI\Windows11InstallationAssistant.exe"
+C:\TI\Windows11InstallationAssistant.exe
+echo --------------------------------------------------------------------
+
+
+
