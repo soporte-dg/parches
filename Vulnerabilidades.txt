@@ -58,7 +58,7 @@ del C:\TI\FCVPN.7z.014
 del C:\TI\FCVPN.7z.015
 del C:\TI\FCVPN.7z.016
 del C:\TI\FCVPN.7z.017
-msiexec /i C:\TI\FCVPN.msi /quiet
+msiexec /i C:\TI\FortiClientVPN.msi /quiet
 echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://download.microsoft.com/download/db8267b0-3e86-4254-82c7-a127878a9378/Windows11InstallationAssistant.exe" -OutFile "C:\TI\Windows11InstallationAssistant.exe"
 C:\TI\Windows11InstallationAssistant.exe
