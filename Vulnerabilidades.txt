@@ -1,5 +1,5 @@
 @echo off
-title Correccion de Vulnerabilidades
+title Corrección de Vulnerabilidades
 echo --------------------------------------------------------------------
 echo Lista de Correcciones para aplicar
 echo --------------------------------------------------------------------
@@ -12,12 +12,12 @@ echo Comenzando Descarga y Actualizacion
 echo --------------------------------------------------------------------
 echo 7Zip
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://7-zip.org/a/7z2501-x64.msi" -OutFile "C:\TI\7zip-x64.msi"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/7zip-x64.msi" -OutFile "C:\TI\7zip-x64.msi"
 msiexec /i C:\TI\7zip-x64.msi /quiet
 echo --------------------------------------------------------------------
 echo GLPI
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/glpi-project/glpi-agent/releases/download/1.15/GLPI-Agent-1.15-x64.msi" -OutFile "C:\TI\GLPI-Agent.msi"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/GLPI-Agent.msi" -OutFile "C:\TI\GLPI-Agent.msi"
 msiexec /i C:\TI\GLPI-Agent.msi /quiet SERVER="https://glpi.deltaproyectos.mx/front/inventory.php"
 echo --------------------------------------------------------------------
 echo VLC
@@ -66,8 +66,10 @@ msiexec /i C:\TI\FortiClientVPN.msi /quiet
 echo --------------------------------------------------------------------
 echo W11
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://download.microsoft.com/download/db8267b0-3e86-4254-82c7-a127878a9378/Windows11InstallationAssistant.exe" -OutFile "C:\TI\Windows11InstallationAssistant.exe"
-C:\TI\Windows11InstallationAssistant.exe
+powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/WPCHCS.msi" -OutFile "C:\TI\WPCHCS.msi"
+msiexec /i C:\TI\WPCHCS.msi
+powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/W11IA.exe" -OutFile "C:\TI\W11IA.exe"
+"C:\TI\W11IA.exe"
 echo --------------------------------------------------------------------
 
 
