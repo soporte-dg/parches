@@ -25,25 +25,102 @@ echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://southfront.mm.fcix.net/videolan-ftp/vlc/3.0.23/win64/vlc-3.0.23-win64.msi" -OutFile "C:\TI\vlc-win64.msi"
 msiexec /i C:\TI\vlc-win64.msi /quiet
 echo --------------------------------------------------------------------
-echo FCVPN
+echo W11
+echo --------------------------------------------------------------------
+powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/WPCHCS.msi" -OutFile "C:\TI\WPCHCS.msi"
+msiexec /i C:\TI\WPCHCS.msi
+powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/W11IA.exe" -OutFile "C:\TI\W11IA.exe"
+"C:\TI\W11IA.exe"
+pause
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 01 de 17
 echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.001" -OutFile "C:\TI\FCVPN.7z.001"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 02 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.002" -OutFile "C:\TI\FCVPN.7z.002"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 03 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.003" -OutFile "C:\TI\FCVPN.7z.003"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 04 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.004" -OutFile "C:\TI\FCVPN.7z.004"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 05 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.005" -OutFile "C:\TI\FCVPN.7z.005"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 06 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.006" -OutFile "C:\TI\FCVPN.7z.006"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 07 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.007" -OutFile "C:\TI\FCVPN.7z.007"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 08 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.008" -OutFile "C:\TI\FCVPN.7z.008"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 09 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.009" -OutFile "C:\TI\FCVPN.7z.009"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 10 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.010" -OutFile "C:\TI\FCVPN.7z.010"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 11 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.011" -OutFile "C:\TI\FCVPN.7z.011"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 12 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.012" -OutFile "C:\TI\FCVPN.7z.012"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 13 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.013" -OutFile "C:\TI\FCVPN.7z.013"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 14 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.014" -OutFile "C:\TI\FCVPN.7z.014"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 15 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.015" -OutFile "C:\TI\FCVPN.7z.015"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 16 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.016" -OutFile "C:\TI\FCVPN.7z.016"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN Parte 17 de 17
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.017" -OutFile "C:\TI\FCVPN.7z.017"
+cls
+echo --------------------------------------------------------------------
+echo FCVPN - Extrayendo Ejecutable
+echo --------------------------------------------------------------------
 "C:\Program Files\7-Zip\7z.exe" x C:\TI\FCVPN.7z.001 -oC:\TI
 del C:\TI\FCVPN.7z.001
 del C:\TI\FCVPN.7z.002
@@ -63,14 +140,8 @@ del C:\TI\FCVPN.7z.015
 del C:\TI\FCVPN.7z.016
 del C:\TI\FCVPN.7z.017
 msiexec /i C:\TI\FortiClientVPN.msi /quiet
-echo --------------------------------------------------------------------
-echo W11
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/WPCHCS.msi" -OutFile "C:\TI\WPCHCS.msi"
-msiexec /i C:\TI\WPCHCS.msi
-powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/W11IA.exe" -OutFile "C:\TI\W11IA.exe"
-"C:\TI\W11IA.exe"
-echo --------------------------------------------------------------------
+pause
+exit
 
 
 
