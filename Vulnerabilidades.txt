@@ -12,13 +12,13 @@ echo Comenzando Descarga y Actualizacion
 echo --------------------------------------------------------------------
 echo 7Zip
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/7zip-x64.msi" -OutFile "C:\TI\7zip-x64.msi"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/7zip-x64.msi" -OutFile "C:\TI\7zip-x64.msi"
 msiexec /i C:\TI\7zip-x64.msi /quiet
 echo --------------------------------------------------------------------
 echo GLPI
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/GLPI-Agent.msi" -OutFile "C:\TI\GLPI-Agent.msi"
-msiexec /i C:\TI\GLPI-Agent.msi /quiet SERVER="https://glpi.deltaproyectos.mx/front/inventory.php"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/GLPI-Agent.msi" -OutFile "C:\TI\GLPI-Agent.msi"
+msiexec /i C:\TI\GLPI-Agent.msi /quiet SERVER="https://glpi.sisadem.com/front/inventory.php"
 echo --------------------------------------------------------------------
 echo VLC
 echo --------------------------------------------------------------------
@@ -27,9 +27,9 @@ msiexec /i C:\TI\vlc-win64.msi /quiet
 echo --------------------------------------------------------------------
 echo W11
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/WPCHCS.msi" -OutFile "C:\TI\WPCHCS.msi"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/WPCHCS.msi" -OutFile "C:\TI\WPCHCS.msi"
 msiexec /i C:\TI\WPCHCS.msi
-powershell -Command Invoke-WebRequest -Uri "https://github.com/DPD-TI-Department/cve-dg/raw/refs/heads/main/W11IA.exe" -OutFile "C:\TI\W11IA.exe"
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/W11IA.exe" -OutFile "C:\TI\W11IA.exe"
 "C:\TI\W11IA.exe"
 pause
 cls
