@@ -3,12 +3,23 @@ title Corrección de Vulnerabilidades
 echo --------------------------------------------------------------------
 echo Lista de Correcciones para aplicar
 echo --------------------------------------------------------------------
-echo - 7zip, GLPI Agent, VLC, FCVPN y W11
+echo - GLPI Server URL,7zip, GLPI Agent, VLC, FCVPN y W11
 echo --------------------------------------------------------------------
 pause
 cls
 echo --------------------------------------------------------------------
 echo Comenzando Descarga y Actualizacion
+echo --------------------------------------------------------------------
+echo GLPI Server URL
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/GLPI_SVR_Link.reg" -OutFile "C:\TI\Regedit\GLPI_SVR_Link.reg"
+reg import C:\TI\Regedit\GLPI_SVR_Link.reg
+echo --------------------------------------------------------------------
+echo
+echo Si solo vas a actualizar la URL del GLPI, puedes cerrar el bat aquí.
+echo
+echo Si vas a corregir las vulnerabilidades
+pause
+cls
 echo --------------------------------------------------------------------
 echo 7Zip
 echo --------------------------------------------------------------------
@@ -142,6 +153,3 @@ del C:\TI\FCVPN.7z.017
 msiexec /i C:\TI\FortiClientVPN.msi /quiet
 pause
 exit
-
-
-
