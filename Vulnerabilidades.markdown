@@ -1,38 +1,25 @@
 title Correccion de Vulnerabilidades
 :0
+echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
-echo Lista de Correcciones para aplicar
-echo --------------------------------------------------------------------
-color 09
 powershell -Command Get-Package -Name "*7-Zip*"
-color 0A
 echo - Version Requerida 7-Zip 26.00 
-color
 echo --------------------------------------------------------------------
-color 09
 powershell -Command Get-Package -Name "*GLPI*"
-color 0A
 echo - Version Requerida GLPI Agent v1.16
-color
 echo --------------------------------------------------------------------
-color 09
 powershell -Command Get-Package -Name "*VLC*"
-color 0A
 echo - Version Requerida VLC 3.0.23
-color
 echo --------------------------------------------------------------------
-color 09
 powershell -Command Get-Package -Name "*Forticlient*"
-color 0A
 echo - Version Requerida Forticlient VPN 7.4.3.8758
-color
 echo --------------------------------------------------------------------
-color 09
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v DisplayVersion
-color 0A
 echo - Version Requerida Windows 11 25H2
-color
 echo --------------------------------------------------------------------
+echo Toma nota de las versiones desactualizadas y
+pause
+cls
 echo Selecciona el numero de vulnerabilidad a resolver
 echo --------------------------------------------------------------------
 echo  1 - GLPI Server URL
@@ -54,6 +41,7 @@ if %step% == 6 goto 6
 :1
 echo --------------------------------------------------------------------
 echo GLPI Server URL
+echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/GLPI_SVR_Link.reg" -OutFile "C:\TI\Regedit\GLPI_SVR_Link.reg"
 reg import C:\TI\Regedit\GLPI_SVR_Link.reg
 cls
