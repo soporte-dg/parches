@@ -1,4 +1,5 @@
 title Correccion de Vulnerabilidades
+powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/CVE_Upgrade.markdown" -OutFile "C:\TI\CVE_Upgrade.bat"
 :0
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
