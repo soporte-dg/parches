@@ -1,4 +1,3 @@
-@echo off
 title Correccion de Vulnerabilidades
 :0
 echo --------------------------------------------------------------------
