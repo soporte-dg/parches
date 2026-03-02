@@ -82,7 +82,7 @@ powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parche
 pause
 cls
 goto 0
-:6
+:5
 echo --------------------------------------------------------------------
 echo FCVPN Parte 01 de 17
 echo --------------------------------------------------------------------
