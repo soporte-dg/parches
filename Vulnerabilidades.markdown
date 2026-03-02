@@ -4,20 +4,35 @@ title Correccion de Vulnerabilidades
 echo --------------------------------------------------------------------
 echo Lista de Correcciones para aplicar
 echo --------------------------------------------------------------------
+color 09
 powershell -Command Get-Package -Name "*7-Zip*"
+color 0A
 echo - Version Requerida 7-Zip 26.00 
+color
 echo --------------------------------------------------------------------
+color 09
 powershell -Command Get-Package -Name "*GLPI*"
+color 0A
 echo - Version Requerida GLPI Agent v1.16
+color
 echo --------------------------------------------------------------------
+color 09
 powershell -Command Get-Package -Name "*VLC*"
+color 0A
 echo - Version Requerida VLC 3.0.23
+color
 echo --------------------------------------------------------------------
+color 09
 powershell -Command Get-Package -Name "*Forticlient*"
+color 0A
 echo - Version Requerida Forticlient VPN 7.4.3.8758
+color
 echo --------------------------------------------------------------------
+color 09
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v DisplayVersion
+color 0A
 echo - Version Requerida Windows 11 25H2
+color
 echo --------------------------------------------------------------------
 echo Selecciona el numero de vulnerabilidad a resolver
 echo --------------------------------------------------------------------
