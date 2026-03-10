@@ -42,8 +42,8 @@ if %step% == 3 goto 3
 if %step% == 4 goto 4
 if %step% == 5 goto 5
 if %step% == 6 goto 6
-if %step% == 6 goto 7
-if %step% == 6 goto 8
+if %step% == 7 goto 7
+if %step% == 8 goto 8
 :1
 echo --------------------------------------------------------------------
 echo GLPI Server URL
