@@ -30,6 +30,8 @@ echo  3 - GLPI Agent
 echo  4 - VLC
 echo  5 - Forticlient
 echo  6 - Actualizar Version de Windows
+echo  7 - Descargar AV BGZ_Mon
+echo  8 - Descargar AV BGZ_Sop
 echo --------------------------------------------------------------------
 echo Introduzca el numero a continuacion y presione enter
 set /p step=
@@ -40,6 +42,8 @@ if %step% == 3 goto 3
 if %step% == 4 goto 4
 if %step% == 5 goto 5
 if %step% == 6 goto 6
+if %step% == 6 goto 7
+if %step% == 6 goto 8
 :1
 echo --------------------------------------------------------------------
 echo GLPI Server URL
@@ -190,6 +194,25 @@ del C:\TI\FCVPN.7z.014
 del C:\TI\FCVPN.7z.015
 del C:\TI\FCVPN.7z.016
 del C:\TI\FCVPN.7z.017
-msiexec /i C:\TI\FortiClientVPN.msi /quiet
+msiexec /i C:\TI\FortiClientVPN.msi
 pause
-exit
+cls
+goto 0
+:7
+echo --------------------------------------------------------------------
+echo Descargando AV BGZ_Mon
+echo --------------------------------------------------------------------
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/BGZ_Mon_setupdownloader_%5BaHR0cHM6Ly9jbG91ZC1lY3MuZ3Jhdml0eXpvbmUuYml0ZGVmZW5kZXIuY29tL1BhY2thZ2VzL0JTVFdJTi8wL3ZMbXlUZi9pbnN0YWxsZXIueG1sP2xhbmc9ZXMtRVM=%5D.exe" -OutFile "C:\TI\AV\BGZ_Mon\setupdownloader_%5BaHR0cHM6Ly9jbG91ZC1lY3MuZ3Jhdml0eXpvbmUuYml0ZGVmZW5kZXIuY29tL1BhY2thZ2VzL0JTVFdJTi8wL3ZMbXlUZi9pbnN0YWxsZXIueG1sP2xhbmc9ZXMtRVM=%5D.exe"
+explorer "C:\TI\AV\"
+pause
+cls
+goto 0
+:8
+echo --------------------------------------------------------------------
+echo Descargando AV BGZ_Sop
+echo --------------------------------------------------------------------
+powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/BGZ_Sop_setupdownloader_%5BaHR0cHM6Ly9jbG91ZC1lY3MuZ3Jhdml0eXpvbmUuYml0ZGVmZW5kZXIuY29tL1BhY2thZ2VzL0JTVFdJTi8wL1B2dGtPZi9pbnN0YWxsZXIueG1sP2xhbmc9ZXMtRVM=%5D.exe" -OutFile "C:\TI\AV\BGZ_Sop\setupdownloader_%5BaHR0cHM6Ly9jbG91ZC1lY3MuZ3Jhdml0eXpvbmUuYml0ZGVmZW5kZXIuY29tL1BhY2thZ2VzL0JTVFdJTi8wL1B2dGtPZi9pbnN0YWxsZXIueG1sP2xhbmc9ZXMtRVM=%5D.exe"
+explorer "C:\TI\AV\"
+pause
+cls
+goto 0
