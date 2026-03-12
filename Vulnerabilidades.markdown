@@ -3,10 +3,6 @@ powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/so
 reg delete HKEY_CLASSES_ROOT\search-ms /f
 powershell -Command "Get-Package -Name "GLPI Agent 1.16" | Uninstall-Package"
 winget uninstall "GLPI Agent"
-powershell -Command "Get-Package -Name "GLPI Agent 1.15" | Uninstall-Package"
-powershell -Command "Get-Package -Name "GLPI Agent 1.13" | Uninstall-Package"
-powershell -Command "Get-Package -Name "GLPI Agent 1.7" | Uninstall-Package"
-powershell -Command "Get-Package -Name "GLPI *" | Uninstall-Package"
 :0
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
@@ -32,12 +28,12 @@ echo Selecciona el numero de vulnerabilidad a resolver
 echo --------------------------------------------------------------------
 echo  1 - Desactivado
 echo  2 - 7-Zip
-echo  3 - Desactivado
+echo  3 - BHV
 echo  4 - VLC
 echo  5 - Forticlient
 echo  6 - Actualizar Version de Windows
-echo  7 - Descargar AV BGZ_Mon
-echo  8 - Descargar AV BGZ_Sop
+echo  7 - Desactivado
+echo  8 - Desactivado
 echo --------------------------------------------------------------------
 echo Introduzca el numero a continuacion y presione enter
 set /p step=
@@ -67,9 +63,11 @@ cls
 goto 0
 :3
 echo --------------------------------------------------------------------
-echo Desactivado
+echo BHV
 echo --------------------------------------------------------------------
-Desactivado
+powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/BHV.zip" -OutFile "C:\TI\BHV.zip"
+"C:\Program Files\7-Zip\7z.exe" x C:\TI\BHV.zip -oC:\TI\
+C:\TI\BHV\BHV.exe /cfg "C:\TI\BHV\BHV.cfg" /scomma "C:\TI\%computername%_%date:-=_%_BHV.csv"
 cls
 goto 0
 :4
@@ -204,19 +202,15 @@ cls
 goto 0
 :7
 echo --------------------------------------------------------------------
-echo Descargando AV BGZ_Mon
+echo Desactivado
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/BGZ_Mon_setupdownloader_%5BaHR0cHM6Ly9jbG91ZC1lY3MuZ3Jhdml0eXpvbmUuYml0ZGVmZW5kZXIuY29tL1BhY2thZ2VzL0JTVFdJTi8wL3ZMbXlUZi9pbnN0YWxsZXIueG1sP2xhbmc9ZXMtRVM=%5D.exe" -OutFile "C:\TI\AV\BGZ_Mon\setupdownloader_%5BaHR0cHM6Ly9jbG91ZC1lY3MuZ3Jhdml0eXpvbmUuYml0ZGVmZW5kZXIuY29tL1BhY2thZ2VzL0JTVFdJTi8wL3ZMbXlUZi9pbnN0YWxsZXIueG1sP2xhbmc9ZXMtRVM=%5D.exe"
-explorer "C:\TI\AV\"
-pause
+Desactivado
 cls
 goto 0
 :8
 echo --------------------------------------------------------------------
-echo Descargando AV BGZ_Sop
+echo Desactivado
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/BGZ_Sop_setupdownloader_%5BaHR0cHM6Ly9jbG91ZC1lY3MuZ3Jhdml0eXpvbmUuYml0ZGVmZW5kZXIuY29tL1BhY2thZ2VzL0JTVFdJTi8wL1B2dGtPZi9pbnN0YWxsZXIueG1sP2xhbmc9ZXMtRVM=%5D.exe" -OutFile "C:\TI\AV\BGZ_Sop\setupdownloader_%5BaHR0cHM6Ly9jbG91ZC1lY3MuZ3Jhdml0eXpvbmUuYml0ZGVmZW5kZXIuY29tL1BhY2thZ2VzL0JTVFdJTi8wL1B2dGtPZi9pbnN0YWxsZXIueG1sP2xhbmc9ZXMtRVM=%5D.exe"
-explorer "C:\TI\AV\"
-pause
+Desactivado
 cls
 goto 0
