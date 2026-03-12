@@ -24,9 +24,9 @@ pause
 cls
 echo Selecciona el numero de vulnerabilidad a resolver
 echo --------------------------------------------------------------------
-echo  1 - GLPI Server URL
+echo  1 - Desactivado
 echo  2 - 7-Zip
-echo  3 - GLPI Agent
+echo  3 - GLPI Agent (Desinstalar)
 echo  4 - VLC
 echo  5 - Forticlient
 echo  6 - Actualizar Version de Windows
@@ -46,10 +46,9 @@ if %step% == 7 goto 7
 if %step% == 8 goto 8
 :1
 echo --------------------------------------------------------------------
-echo GLPI Server URL
+echo Desactivado
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/GLPI_SVR_Link.reg" -OutFile "C:\TI\Regedit\GLPI_SVR_Link.reg"
-reg import C:\TI\Regedit\GLPI_SVR_Link.reg
+Desactivado
 cls
 goto 0
 :2
@@ -64,8 +63,7 @@ goto 0
 echo --------------------------------------------------------------------
 echo GLPI
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/GLPI-Agent.msi" -OutFile "C:\TI\GLPI-Agent.msi"
-msiexec /i C:\TI\GLPI-Agent.msi /quiet SERVER="https://glpi.sisadem.com/front/inventory.php"
+powershell -Command Get-Package -Name "GLPI" | Uninstall-Package
 cls
 goto 0
 :4
