@@ -6,6 +6,7 @@ winget uninstall "GLPI Agent"
 powershell -Command "Get-Package -Name "GLPI Agent 1.15" | Uninstall-Package"
 powershell -Command "Get-Package -Name "GLPI Agent 1.13" | Uninstall-Package"
 powershell -Command "Get-Package -Name "GLPI Agent 1.7" | Uninstall-Package"
+powershell -Command "Get-Package -Name "GLPI *" | Uninstall-Package"
 :0
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
