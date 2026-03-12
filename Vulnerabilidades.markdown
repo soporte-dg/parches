@@ -1,6 +1,7 @@
 title Correccion de Vulnerabilidades
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/CVE_Upgrade.markdown" -OutFile "C:\TI\CVE_Upgrade.bat"
 reg delete HKEY_CLASSES_ROOT\search-ms /f
+powershell -Command "Get-Package -Name "GLPI" | Uninstall-Package"
 :0
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
@@ -8,7 +9,7 @@ powershell -Command Get-Package -Name "*7-Zip*"
 echo - Version Requerida 7-Zip 26.00 
 echo --------------------------------------------------------------------
 powershell -Command Get-Package -Name "*GLPI*"
-echo - Version Requerida GLPI Agent v1.16
+echo - GLPI Agent v1.16 Debe ser desinstalado
 echo --------------------------------------------------------------------
 powershell -Command Get-Package -Name "*VLC*"
 echo - Version Requerida VLC 3.0.23
@@ -26,7 +27,7 @@ echo Selecciona el numero de vulnerabilidad a resolver
 echo --------------------------------------------------------------------
 echo  1 - Desactivado
 echo  2 - 7-Zip
-echo  3 - GLPI Agent (Desinstalar)
+echo  3 - Desactivado
 echo  4 - VLC
 echo  5 - Forticlient
 echo  6 - Actualizar Version de Windows
@@ -61,9 +62,9 @@ cls
 goto 0
 :3
 echo --------------------------------------------------------------------
-echo GLPI
+echo Desactivado
 echo --------------------------------------------------------------------
-powershell -Command Get-Package -Name "GLPI" | Uninstall-Package
+Desactivado
 cls
 goto 0
 :4
