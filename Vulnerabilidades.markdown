@@ -1,8 +1,13 @@
 title Correccion de Vulnerabilidades
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/CVE_Upgrade.markdown" -OutFile "C:\TI\CVE_Upgrade.bat"
 reg delete HKEY_CLASSES_ROOT\search-ms /f
-powershell -Command "Get-Package -Name "GLPI Agent 1.16" | Uninstall-Package"
+cls
+echo --------------------------------------------------------------------
+Desinstalando GLPI
+echo --------------------------------------------------------------------
 winget uninstall "GLPI Agent"
+echo --------------------------------------------------------------------
+cls
 :0
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
