@@ -37,7 +37,7 @@ echo  3 - BHV
 echo  4 - VLC
 echo  5 - Forticlient
 echo  6 - Actualizar Version de Windows
-echo  7 - Desactivado
+echo  7 - Actualizar Bat de Mantenimiento
 echo  8 - Desactivado
 echo --------------------------------------------------------------------
 echo Introduzca el numero a continuacion y presione enter
@@ -207,9 +207,9 @@ cls
 goto 0
 :7
 echo --------------------------------------------------------------------
-echo Desactivado
+echo Actualizando Bat de Mantenimiento
 echo --------------------------------------------------------------------
-Desactivado
+powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/Mantenimiento.markdown" -OutFile "C:\TI\Mantenimiento.bat"
 cls
 goto 0
 :8
