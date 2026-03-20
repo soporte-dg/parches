@@ -35,7 +35,7 @@ echo Generar reporte de historial de navegacion
 echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/BHV.zip" -OutFile "C:\TI\BHV.zip"
 "C:\Program Files\7-Zip\7z.exe" x C:\TI\BHV.zip -oC:\TI\
-C:\TI\BHV\BHV.exe /cfg "C:\TI\BHV\BHV.cfg" /scomma "C:\TI\%computername%_%date:-=_%_BHV.csv"
+C:\TI\BHV\BHV.exe /cfg "C:\TI\BHV\BHV.cfg" /scomma "C:\TI\%computername%_%date%_BHV.csv"
 cls
 echo --------------------------------------------------------------------
 echo Generar Reporte de programas instalados
