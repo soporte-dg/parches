@@ -48,21 +48,23 @@ cls
 echo --------------------------------------------------------------------
 echo Generando Reporte de Archivos No Autorizados
 echo --------------------------------------------------------------------
-echo Listado de archivos no autorizados >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-echo %date% >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-echo -------------------------------------------------------------------- >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-echo Archivos .ISO >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-dir /S /B /A:-D *.iso | findstr /V /I /C:"\\Program\\" /C:"\\Windows\\" /C:"\\AppData\\" >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-echo -------------------------------------------------------------------- >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-echo Archivos .exe >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-dir "C:\Users\*.exe" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-echo -------------------------------------------------------------------- >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-echo Archivos Audio >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-dir /S /B /A:-D *.mp3 *.m4a | findstr /V /I /C:"\\Program\\" /C:"\\Windows\\" /C:"\\AppData\\" >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-echo -------------------------------------------------------------------- >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-echo Archivos Video >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-dir /S /B /A:-D *.mp4 *.mkv *.avi *.mpg *.mpeg | findstr /V /I /C:"\\Program\\" /C:"\\Windows\\" /C:"\\AppData\\" >> C:\TI\%computername%_Archivos_No_Autorizados.txt
-echo -------------------------------------------------------------------- >> C:\TI\%computername%_Archivos_No_Autorizados.txt
+echo Listado de archivos no autorizados >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+echo %date% >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+echo -------------------------------------------------------------------- >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+echo Instaladores, Portables o Ejecutables >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+dir "C:\Users\*.exe" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+echo -------------------------------------------------------------------- >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+echo Archivos Audio >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+dir "C:\Users\*.mp3" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+dir "C:\Users\*.m4a" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+echo -------------------------------------------------------------------- >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+echo Archivos Video >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+dir "C:\Users\*.mp4" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+dir "C:\Users\*.mkv" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+dir "C:\Users\*.avi" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+dir "C:\Users\*.mpg" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+dir "C:\Users\*.mpeg" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+echo -------------------------------------------------------------------- >> C:\TI\%computername%_%date%_No_Auth_Files.txt
 cls
 echo --------------------------------------------------------------------
 echo El reporte se encuentra en: "C:\TI\%computername%_Apps_Instaladas.txt"
