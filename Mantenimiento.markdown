@@ -42,33 +42,30 @@ echo Generar Reporte de programas instalados
 echo --------------------------------------------------------------------
 winget list --accept-source-agreements >> C:\TI\%computername%_Apps_Instaladas.txt
 cls
-cd..
-cd..
-cls
 echo --------------------------------------------------------------------
 echo Generando Reporte de Archivos No Autorizados
 echo --------------------------------------------------------------------
-echo Listado de archivos no autorizados >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-echo %date% >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-echo -------------------------------------------------------------------- >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-echo Instaladores, Portables o Ejecutables >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-dir "C:\Users\*.exe" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-echo -------------------------------------------------------------------- >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-echo Archivos Audio >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-dir "C:\Users\*.mp3" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-dir "C:\Users\*.m4a" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-echo -------------------------------------------------------------------- >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-echo Archivos Video >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-dir "C:\Users\*.mp4" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-dir "C:\Users\*.mkv" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-dir "C:\Users\*.avi" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-dir "C:\Users\*.mpg" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-dir "C:\Users\*.mpeg" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_%date%_No_Auth_Files.txt
-echo -------------------------------------------------------------------- >> C:\TI\%computername%_%date%_No_Auth_Files.txt
+echo Listado de archivos no autorizados >> C:\TI\%computername%_No_Auth_Files.txt
+echo %date% >> C:\TI\%computername%_No_Auth_Files.txt
+echo -------------------------------------------------------------------- >> C:\TI\%computername%_No_Auth_Files.txt
+echo Instaladores, Portables o Ejecutables >> C:\TI\%computername%_No_Auth_Files.txt
+dir "C:\Users\*.exe" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
+echo -------------------------------------------------------------------- >> C:\TI\%computername%_No_Auth_Files.txt
+echo Archivos Audio >> C:\TI\%computername%_No_Auth_Files.txt
+dir "C:\Users\*.mp3" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
+dir "C:\Users\*.m4a" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
+echo -------------------------------------------------------------------- >> C:\TI\%computername%_No_Auth_Files.txt
+echo Archivos Video >> C:\TI\%computername%_No_Auth_Files.txt
+dir "C:\Users\*.mp4" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
+dir "C:\Users\*.mkv" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
+dir "C:\Users\*.avi" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
+dir "C:\Users\*.mpg" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
+dir "C:\Users\*.mpeg" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
+echo -------------------------------------------------------------------- >> C:\TI\%computername%_No_Auth_Files.txt
 cls
 echo --------------------------------------------------------------------
 echo El reporte se encuentra en: "C:\TI\%computername%_Apps_Instaladas.txt"
-echo El reporte se encuentra en: "C:\TI\DPCP-***_Archivos_No_Autorizados.txt"
+echo El reporte se encuentra en: "C:\TI\DPCP-***_No_Auth_Files.txt"
 echo El reporte se encuentra en: "C:\TI\DPCP-***_BHV.csv"
 echo --------------------------------------------------------------------
 pause
