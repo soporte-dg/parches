@@ -9,7 +9,7 @@ echo  10b - Ejecutar limpieza de sistema operativo
 echo  10c - Validar Funcionamiento de OneDrive
 echo  10d - Actualizar Windows 11
 echo  10e - Actualizaciones de Windows
-echo  10f - 
+echo  10f - Antivirus, revisa que este instalado y actualizado en GLPI
 echo  10g - 
 echo  10h - 
 echo  10i - Borrado Seguro Espacio Libre
@@ -35,7 +35,7 @@ echo Generar reporte de historial de navegacion
 echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/BHV.zip" -OutFile "C:\TI\BHV.zip"
 "C:\Program Files\7-Zip\7z.exe" x C:\TI\BHV.zip -oC:\TI\
-C:\TI\BHV\BHV.exe /cfg "C:\TI\BHV\BHV.cfg" /scomma "C:\TI\%computername%_%date%_BHV.csv"
+C:\TI\BHV\BHV.exe /cfg "C:\TI\BHV\BHV.cfg" /scomma "C:\TI\%computername%_BHV.csv"
 cls
 echo --------------------------------------------------------------------
 echo Generar Reporte de programas instalados
@@ -121,7 +121,9 @@ cls
 goto 10
 :10f
 cls
-echo ------------------------PROXIMAMENTE----------------------------
+echo --------------------------------------------------------------------
+echo Revisa que el antivirus este instalado y actualizado en GLPI
+pause
 cls
 goto 10
 :10g

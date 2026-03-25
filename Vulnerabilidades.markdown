@@ -2,12 +2,6 @@ title Correccion de Vulnerabilidades
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/CVE_Upgrade.markdown" -OutFile "C:\TI\CVE_Upgrade.bat"
 reg delete HKEY_CLASSES_ROOT\search-ms /f
 cls
-echo --------------------------------------------------------------------
-Desinstalando GLPI
-echo --------------------------------------------------------------------
-winget uninstall "GLPI Agent"
-echo --------------------------------------------------------------------
-cls
 :0
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
@@ -31,7 +25,7 @@ pause
 cls
 echo Selecciona el numero de vulnerabilidad a resolver
 echo --------------------------------------------------------------------
-echo  1 - Desactivado
+echo  1 - Desinstalar GLPI
 echo  2 - 7-Zip
 echo  3 - BHV
 echo  4 - VLC
@@ -53,9 +47,10 @@ if %step% == 7 goto 7
 if %step% == 8 goto 8
 :1
 echo --------------------------------------------------------------------
-echo Desactivado
+echo Desinstala GLPI desde Panel de Control
 echo --------------------------------------------------------------------
-Desactivado
+appwiz.cpl
+pause
 cls
 goto 0
 :2
@@ -96,7 +91,23 @@ cls
 goto 0
 :5
 echo --------------------------------------------------------------------
-echo FCVPN Parte 01 de 17
+echo Cerrar Forticlient Automaticamente
+echo --------------------------------------------------------------------
+taskkill /im FortiTray.exe -f
+taskkill /im FortiClient.exe -f
+pause
+echo --------------------------------------------------------------------
+echo Desinstalar Forticlient Automaticamente
+echo --------------------------------------------------------------------
+powershell -Command winget uninstall "FortiClient VPN"
+echo --------------------------------------------------------------------
+echo Verifica que este desinstalado o hazlo manualmente.
+echo --------------------------------------------------------------------
+appwiz.cpl
+pause
+cls
+echo --------------------------------------------------------------------
+echo Descargando FCVPN Parte 01 de 17
 echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.001" -OutFile "C:\TI\FCVPN.7z.001"
 cls
