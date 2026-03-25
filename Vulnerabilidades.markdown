@@ -1,6 +1,7 @@
 title Correccion de Vulnerabilidades
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/CVE_Upgrade.markdown" -OutFile "C:\TI\CVE_Upgrade.bat"
 reg delete HKEY_CLASSES_ROOT\search-ms /f
+powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/Mantenimiento.markdown" -OutFile "C:\TI\Mantenimiento.bat"
 cls
 :0
 echo Resumen de Versiones de Software
@@ -27,12 +28,10 @@ echo Selecciona el numero de vulnerabilidad a resolver
 echo --------------------------------------------------------------------
 echo  1 - Desinstalar GLPI
 echo  2 - 7-Zip
-echo  3 - BHV
-echo  4 - VLC
-echo  5 - Forticlient
-echo  6 - Actualizar Version de Windows
-echo  7 - Actualizar Bat de Mantenimiento
-echo  8 - Desactivado
+echo  3 - VLC
+echo  4 - Forticlient
+echo  5 - Actualizar Version de Windows
+echo  6 - Realizar Mantenimiento
 echo --------------------------------------------------------------------
 echo Introduzca el numero a continuacion y presione enter
 set /p step=
@@ -43,8 +42,6 @@ if %step% == 3 goto 3
 if %step% == 4 goto 4
 if %step% == 5 goto 5
 if %step% == 6 goto 6
-if %step% == 7 goto 7
-if %step% == 8 goto 8
 :1
 echo --------------------------------------------------------------------
 echo Desinstala GLPI desde Panel de Control
@@ -63,22 +60,13 @@ cls
 goto 0
 :3
 echo --------------------------------------------------------------------
-echo BHV
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/BHV.zip" -OutFile "C:\TI\BHV.zip"
-"C:\Program Files\7-Zip\7z.exe" x C:\TI\BHV.zip -oC:\TI\
-C:\TI\BHV\BHV.exe /cfg "C:\TI\BHV\BHV.cfg" /scomma "C:\TI\%computername%_%date:-=_%_BHV.csv"
-cls
-goto 0
-:4
-echo --------------------------------------------------------------------
 echo VLC
 echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://southfront.mm.fcix.net/videolan-ftp/vlc/3.0.23/win64/vlc-3.0.23-win64.msi" -OutFile "C:\TI\vlc-win64.msi"
 msiexec /i C:\TI\vlc-win64.msi /quiet
 cls
 goto 0
-:6
+:5
 echo --------------------------------------------------------------------
 echo W11
 echo --------------------------------------------------------------------
@@ -89,7 +77,7 @@ powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parche
 pause
 cls
 goto 0
-:5
+:4
 echo --------------------------------------------------------------------
 echo Cerrar Forticlient Automaticamente
 echo --------------------------------------------------------------------
@@ -216,17 +204,10 @@ msiexec /i C:\TI\FortiClientVPN.msi
 pause
 cls
 goto 0
-:7
+:6
 echo --------------------------------------------------------------------
-echo Actualizando Bat de Mantenimiento
+echo Realizar Mantenimiento
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/Mantenimiento.markdown" -OutFile "C:\TI\Mantenimiento.bat"
-cls
-goto 0
-:8
-echo --------------------------------------------------------------------
-echo Desactivado
-echo --------------------------------------------------------------------
-Desactivado
+C:\TI\Mantenimiento.bat
 cls
 goto 0
