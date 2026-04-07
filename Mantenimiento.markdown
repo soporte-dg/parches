@@ -10,7 +10,7 @@ echo  10c - Validar Funcionamiento de OneDrive
 echo  10d - Actualizar Windows 11
 echo  10e - Actualizaciones de Windows
 echo  10f - Antivirus, revisa que este instalado y actualizado en GLPI
-echo  10g - 
+echo  10g - Instalar Portal de empresa
 echo  10h - 
 echo  10i - Borrado Seguro Espacio Libre
 echo  0 - Regresar al menu principal
@@ -124,7 +124,10 @@ pause
 cls
 goto 10
 :10g
-echo ------------------------PROXIMAMENTE----------------------------
+echo --------------------------------------------------------------------
+echo Instalar Portal de empresa
+echo --------------------------------------------------------------------
+powershell Start-Process ms-windows-store://pdp/?productid=9WZDNCRFJ3PZ
 cls
 goto 10
 :10h
