@@ -33,6 +33,7 @@ echo  4 - Forticlient
 echo  5 - Actualizar Version de Windows
 echo  6 - Realizar Mantenimiento
 echo  7 - Instalar Portal de Empresa
+echo  8 - Lenovo System Update
 echo --------------------------------------------------------------------
 echo Introduzca el numero a continuacion y presione enter
 set /p step=
@@ -44,6 +45,7 @@ if %step% == 4 goto 4
 if %step% == 5 goto 5
 if %step% == 6 goto 6
 if %step% == 7 goto 7
+
 :1
 echo --------------------------------------------------------------------
 echo Desinstala GLPI desde Panel de Control
@@ -220,3 +222,11 @@ echo --------------------------------------------------------------------
 powershell Start-Process ms-windows-store://pdp/?productid=9WZDNCRFJ3PZ
 cls
 goto 0
+:8
+echo --------------------------------------------------------------------
+echo Lenovo System Update
+echo --------------------------------------------------------------------
+powershell -Command Invoke-WebRequest -Uri "https://download.lenovo.com/pccbbs/thinkvantage_en/system_update_5.08.03.59.exe" -OutFile "C:\TI\Lenovo_S_U.exe"
+cls
+goto 0
+
