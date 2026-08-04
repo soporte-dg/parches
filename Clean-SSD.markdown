@@ -10,7 +10,7 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 
 # --- CONFIGURACION DE RUTAS DE DESTINO ---
 $localFolder   = "C:\TI\Borrado_Seguro"
-$networkFolder = "\\172.16.40.250\da\Reportes"
+$networkFolder = "\\172.16.40.250\da\Reportes\Borrado_Seguro"
 
 if (-not (Test-Path $localFolder)) { 
     New-Item -ItemType Directory -Path $localFolder -Force | Out-Null 
@@ -32,7 +32,7 @@ $serialNum   = $biosInfo.SerialNumber
 $osCaption   = $osInfo.Caption
 
 # Obtener discos SSD
-$ssdDisks = Get-PhysicalDisk | Where-ObjectType -Property MediaType -Eq "SSD"
+$ssdDisks = Get-PhysicalDisk | Where-Object -Property MediaType -Eq "SSD"
 $diskRowsHtml = ""
 
 foreach ($disk in $ssdDisks) {
@@ -64,7 +64,7 @@ $logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] Papelera de recic
 
 # 4. ReTrim
 $logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] [4/4] Enviando ReTrim a unidades SSD..."
-$volumesToTrim = Get-Volume | Where-ObjectType { $_.DriveLetter -and $_.DriveType -eq "Fixed" }
+$volumesToTrim = Get-Volume | Where-Object { $_.DriveLetter -and $_.DriveType -eq "Fixed" }
 foreach ($vol in $volumesToTrim) {
     try {
         Optimize-Volume -DriveLetter $vol.DriveLetter -ReTrim -Verbose
@@ -82,7 +82,7 @@ $hasher = [System.Security.Cryptography.SHA256]::Create()
 $hashBytes = $hasher.ComputeHash($logBytes)
 $sha256Hash = (-join ($hashBytes | ForEach-Object { "{0:X2}" -f $_ }))
 
-# --- CONSTRUCCION DEL HTML ---
+# --- CONSTRUCCION DEL HTML (SIN SECCION DE FIRMAS) ---
 $htmlTemplate = @"
 <!DOCTYPE html>
 <html lang="es">
@@ -104,11 +104,7 @@ $htmlTemplate = @"
         .field-label { font-weight: bold; color: #475569; width: 25%; }
         .code-block { background-color: #1e293b; color: #f8fafc; font-family: 'Consolas', monospace; padding: 8px 10px; border-radius: 4px; font-size: 8pt; white-space: pre-wrap; word-break: break-all; margin-bottom: 12px; }
         .compliance-box { background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 10px; border-radius: 4px; font-size: 8.5pt; color: #1e40af; margin-bottom: 12px; }
-        .signatures-table { margin-top: 25px; border: none; }
-        .signatures-table td { border: none; padding: 0 15px; width: 50%; text-align: center; }
-        .signature-line { border-top: 1px solid #64748b; margin-top: 35px; padding-top: 4px; font-weight: bold; color: #334155; font-size: 8.5pt; }
-        .signature-subtext { font-size: 7.5pt; color: #64748b; }
-        .footer { margin-top: 20px; padding-top: 8px; border-top: 1px solid #cbd5e1; font-size: 7pt; color: #64748b; text-align: center; }
+        .footer { margin-top: 30px; padding-top: 10px; border-top: 1px solid #cbd5e1; font-size: 7.5pt; color: #64748b; text-align: center; }
     </style>
 </head>
 <body>
@@ -168,20 +164,6 @@ $htmlTemplate = @"
 HASH SHA-256 DEL REGISTRO DE AUDITORIA:
 $sha256Hash
 --------------------------------------------------------------------------------</div>
-
-    <div class="section-title">5. Firmas de Conformidad</div>
-    <table class="signatures-table">
-        <tr>
-            <td>
-                <div class="signature-line">Firma del Tecnico Responsable</div>
-                <div class="signature-subtext">Soporte Tecnico / TI</div>
-            </td>
-            <td>
-                <div class="signature-line">Firma de Recibido / Auditoria</div>
-                <div class="signature-subtext">Seguridad de la Informacion / Cumplimiento</div>
-            </td>
-        </tr>
-    </table>
 
     <div class="footer">
         Este documento PDF sirve como evidencia auditable generada de forma automatizada. Valido para cumplimiento ISO 27001 / NIST 800-88.
