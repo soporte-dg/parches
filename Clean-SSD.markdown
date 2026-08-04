@@ -1,8 +1,3 @@
-# ==============================================================================
-# Script: Borrado_Seguro.ps1
-# Descripcion: Sanitizacion SSD + Generacion de Certificado PDF con Codigo de Barras
-# ==============================================================================
-
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     Write-Warning "Este script requiere ejecutarse como Administrador."
     exit
@@ -89,7 +84,7 @@ $htmlTemplate = @"
 <head>
     <meta charset="UTF-8">
     <title>Certificado de Sanitizacion SSD</title>
-    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <script src="[https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js](https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js)"></script>
     <style>
         @page { size: A4; margin: 12mm; }
         body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; margin: 0; padding: 0; font-size: 9.5pt; line-height: 1.35; }
@@ -202,13 +197,11 @@ if (-not (Test-Path $edgePath)) {
 }
 
 if (Test-Path $edgePath) {
-    # Generar el PDF localmente
     Start-Process -FilePath $edgePath -ArgumentList "--headless", "--disable-gpu", "--run-all-compositor-stages-before-draw", "--print-to-pdf=`"$localPdf`"", "`"$htmlFile`"" -Wait
     Remove-Item -Path $htmlFile -Force -ErrorAction SilentlyContinue
     
     Write-Host " [1/2] PDF guardado en ruta local: $localPdf" -ForegroundColor Green
 
-    # Intentar copiar el PDF a la red
     try {
         if (Test-Path $networkFolder) {
             Copy-Item -Path $localPdf -Destination "$networkFolder\$fileName" -Force
