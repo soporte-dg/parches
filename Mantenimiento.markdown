@@ -11,7 +11,7 @@ echo  10d - Actualizar Windows 11
 echo  10e - Actualizaciones de Windows
 echo  10f - Antivirus, revisa que este instalado y actualizado en GLPI
 echo  10g - Instalar Portal de empresa
-echo  10h - 
+echo  10h - Reporte Inventario "\\172.16.40.250\da\Reportes\"
 echo  10i - Borrado Seguro Espacio Libre
 echo  0 - Regresar al menu principal
 echo --------------------------------------------------------------------
@@ -131,7 +131,14 @@ powershell Start-Process ms-windows-store://pdp/?productid=9WZDNCRFJ3PZ
 cls
 goto 10
 :10h
-echo ------------------------PROXIMAMENTE----------------------------
+echo --------------------------------------------------------------------
+echo Reporte Inventario "\\172.16.40.250\da\Reportes\"
+echo --------------------------------------------------------------------
+hostname >> \\172.16.40.250\da\Reportes\Inv_Fisico.csv
+powershell whoami >> \\172.16.40.250\da\Reportes\Inv_Fisico.csv
+powershell Get-WmiObject win32_bios SerialNumber >> \\172.16.40.250\da\Reportes\Inv_Fisico.csv
+dir C:\Users\ >> \\172.16.40.250\da\Reportes\Inv_Fisico.csv
+echo -------------------------------------------------------------------- >> \\172.16.40.250\da\Reportes\Inv_Fisico.csv
 cls
 goto 10
 :10i
@@ -141,23 +148,12 @@ echo Borrado Seguro de Espacio Libre
 echo ----------------------------------------------------------------
 echo Importante! Cierra todas las aplicaciones y archivos, antes de continuar
 pause
-systeminfo | find /i "fecha de" >> \\172.16.40.250\da\Reportes\Bitacora_Borrado_Seguro.csv
-hostname >> C:\TI\Borrado_Seguro.csv
-systeminfo | find /i "fecha de" >> C:\TI\Borrado_Seguro.csv
-echo %date% >> \\172.16.40.250\da\Reportes\Bitacora_Borrado_Seguro.csv
-echo %date% >> C:\TI\Borrado_Seguro.csv
-echo %time% >> \\172.16.40.250\da\Reportes\Bitacora_Borrado_Seguro.csv
-echo %time% >> C:\TI\Borrado_Seguro.csv
-cipher /w:C
-echo %time% >> \\172.16.40.250\da\Reportes\Bitacora_Borrado_Seguro.csv
-echo %time% >> C:\TI\Borrado_Seguro.csv
-echo Terminado >> \\172.16.40.250\da\Reportes\Bitacora_Borrado_Seguro.csv
-echo Terminado >> C:\TI\Borrado_Seguro.csv
+xcopy /y /s "\\172.16.40.250\da\Borrado_Seguro.ps1" "C:\TI\"
+"C:\TI\Borrado_Seguro.ps1"
 pause
 echo Importante! Si el borrado seguro se hace fuera de la oficina,
-echo debes enviar el archivo C:\TI\Borrado_Seguro.csv por correo
+echo debes enviar el archivo C:\TI\Borrado_Seguro\Certificado_<HOSTNAME>_<FECHA>.pdf por correo
 echo a soporte@deltaproyectos.com indicando que es el reporte de borrado seguro.
-xcopy /y /s "\\172.16.40.250\da\Software\ACP\*.*" "C:\TI\ACP\"
 cls
 goto 10
 :0
