@@ -155,6 +155,8 @@ pause
 echo Importante! Si el borrado seguro se hace fuera de la oficina,
 echo debes enviar el archivo C:\TI\Borrado_Seguro\Certificado_<HOSTNAME>_<FECHA>.pdf por correo
 echo a soporte@deltaproyectos.com indicando que es el reporte de borrado seguro.
+explorer "C:\TI\Borrado_Seguro"
+pause
 cls
 goto 10
 :0
