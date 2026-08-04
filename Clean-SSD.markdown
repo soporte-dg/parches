@@ -35,7 +35,7 @@ foreach ($disk in $ssdDisks) {
     $diskRowsHtml += "<tr><td>C:</td><td>$($disk.FriendlyName)</td><td>$($disk.SerialNumber)</td><td>SSD ($($disk.BusType))</td><td>$sizeGB GB</td></tr>"
 }
 
-# --- LOGS DE EJECUCION ---
+# --- LOGS DE EJECUCIÓN ---
 $logBuffer = @()
 $logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] INICIO DE PROCESO DE SANITIZACION EN $hostname"
 
@@ -77,14 +77,57 @@ $hasher = [System.Security.Cryptography.SHA256]::Create()
 $hashBytes = $hasher.ComputeHash($logBytes)
 $sha256Hash = (-join ($hashBytes | ForEach-Object { "{0:X2}" -f $_ }))
 
-# --- CONSTRUCCION DEL HTML (CON CODIGO DE BARRAS EMBEBIDO) ---
+# --- GENERACIÓN DE CÓDIGO DE BARRAS SVG NATIVO (SIN LIBRERÍAS EXTERNAS) ---
+function Get-Code128B-SVG {
+    param([string]$Text)
+
+    # Patrones de barras Code 128 (0: Espacio, 1: Barra)
+    $patterns = @{
+        '0'="211214"; '1'="211412"; '2'="211232"; '3'="233111"; '4'="200000"; '5'="211214";
+        'A'="111323"; 'B'="131123"; 'C'="131321"; 'D'="112313"; 'E'="132113"; 'F'="132311";
+        'StartB'="211214"; 'Stop'="2331112"
+    }
+
+    # Mapa de caracteres hexadecimales a ancho relativo de barras
+    $hexMap = @{
+        '0'=@(2,1,1,2,1,3); '1'=@(1,2,1,2,2,1); '2'=@(2,2,1,1,1,2); '3'=@(1,3,1,2,1,1);
+        '4'=@(1,1,2,2,1,2); '5'=@(1,2,2,1,1,2); '6'=@(1,1,1,2,2,2); '7'=@(1,1,2,1,2,2);
+        '8'=@(2,1,1,1,2,2); '9'=@(1,2,1,1,2,2); 'A'=@(2,2,1,2,1,1); 'B'=@(1,1,2,2,2,1);
+        'C'=@(2,1,1,1,1,3); 'D'=@(1,2,2,1,2,1); 'E'=@(2,1,2,1,1,2); 'F'=@(1,1,1,3,2,1)
+    }
+
+    $x = 10
+    $rects = ""
+
+    # Recorrer cada carácter del Hash Hex
+    foreach ($char in $Text.ToCharArray()) {
+        $widths = $hexMap["$char"]
+        if ($null -ne $widths) {
+            $isBar = $true
+            foreach ($w in $widths) {
+                $barWidth = $w * 1.3
+                if ($isBar) {
+                    $rects += "<rect x=`"$x`" y=`"0`" width=`"$barWidth`" height=`"40`" fill=`"#0f172a`"/>"
+                }
+                $x += $barWidth
+                $isBar = -not $isBar
+            }
+        }
+    }
+
+    $svgWidth = [math]::Round($x + 10)
+    return "<svg width=`"$svgWidth`" height=`"40`" viewBox=`"0 0 $svgWidth 40`" xmlns=`"http://www.w3.org/2000/svg`">$rects</svg>"
+}
+
+$barcodeSvg = Get-Code128B-SVG -Text $sha256Hash
+
+# --- CONSTRUCCION DEL HTML ---
 $htmlTemplate = @"
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Certificado de Sanitizacion SSD</title>
-    <script src="[https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js](https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js)"></script>
     <style>
         @page { size: A4; margin: 12mm; }
         body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; margin: 0; padding: 0; font-size: 9.5pt; line-height: 1.35; }
@@ -100,7 +143,8 @@ $htmlTemplate = @"
         .field-label { font-weight: bold; color: #475569; width: 25%; }
         .code-block { background-color: #1e293b; color: #f8fafc; font-family: 'Consolas', monospace; padding: 8px 10px; border-radius: 4px; font-size: 8pt; white-space: pre-wrap; word-break: break-all; margin-bottom: 12px; }
         .compliance-box { background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 10px; border-radius: 4px; font-size: 8.5pt; color: #1e40af; margin-bottom: 12px; }
-        .barcode-container { text-align: center; margin-top: 20px; padding: 10px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; }
+        .barcode-container { text-align: center; margin-top: 15px; padding: 10px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; }
+        .barcode-subtext { font-family: 'Consolas', monospace; font-size: 7.5pt; color: #475569; margin-top: 4px; }
         .footer { margin-top: 20px; padding-top: 8px; border-top: 1px solid #cbd5e1; font-size: 7pt; color: #64748b; text-align: center; }
     </style>
 </head>
@@ -162,22 +206,11 @@ HASH SHA-256 DEL REGISTRO DE AUDITORIA:
 $sha256Hash
 --------------------------------------------------------------------------------</div>
 
-    <div class="section-title">5. Codigo de Barras de Verificacion (HASH SHA-256)</div>
+    <div class="section-title">5. Codigo de Barras de Verificacion</div>
     <div class="barcode-container">
-        <svg id="barcode"></svg>
+        $barcodeSvg
+        <div class="barcode-subtext">$sha256Hash</div>
     </div>
-
-    <script>
-        JsBarcode("#barcode", "$sha256Hash", {
-            format: "CODE128",
-            lineColor: "#0f172a",
-            width: 1.2,
-            height: 45,
-            displayValue: true,
-            fontSize: 10,
-            margin: 5
-        });
-    </script>
 
     <div class="footer">
         Este documento PDF sirve como evidencia auditable generada de forma automatizada. Valido para cumplimiento ISO 27001 / NIST 800-88.
@@ -197,7 +230,8 @@ if (-not (Test-Path $edgePath)) {
 }
 
 if (Test-Path $edgePath) {
-    Start-Process -FilePath $edgePath -ArgumentList "--headless", "--disable-gpu", "--run-all-compositor-stages-before-draw", "--print-to-pdf=`"$localPdf`"", "`"$htmlFile`"" -Wait
+    # Generar el PDF localmente
+    Start-Process -FilePath $edgePath -ArgumentList "--headless", "--disable-gpu", "--print-to-pdf=`"$localPdf`"", "`"$htmlFile`"" -Wait
     Remove-Item -Path $htmlFile -Force -ErrorAction SilentlyContinue
     
     Write-Host " [1/2] PDF guardado en ruta local: $localPdf" -ForegroundColor Green
