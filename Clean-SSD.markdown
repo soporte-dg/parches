@@ -1,6 +1,6 @@
 # ==============================================================================
 # Script: Borrado_Seguro.ps1
-# Descripción: Sanitización SSD + Generación de Certificado PDF (Local y Red)
+# Descripcion: Sanitizacion SSD + Generacion de Certificado PDF (Local y Red)
 # ==============================================================================
 
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -8,9 +8,9 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-# --- CONFIGURACIÓN DE RUTAS DE DESTINO ---
+# --- CONFIGURACION DE RUTAS DE DESTINO ---
 $localFolder   = "C:\TI\Borrado_Seguro"
-$networkFolder = "\\172.16.40.250\da\Reportes\Borrado_Seguro"
+$networkFolder = "\\172.16.40.250\da\Reportes"
 
 if (-not (Test-Path $localFolder)) { 
     New-Item -ItemType Directory -Path $localFolder -Force | Out-Null 
@@ -40,7 +40,7 @@ foreach ($disk in $ssdDisks) {
     $diskRowsHtml += "<tr><td>C:</td><td>$($disk.FriendlyName)</td><td>$($disk.SerialNumber)</td><td>SSD ($($disk.BusType))</td><td>$sizeGB GB</td></tr>"
 }
 
-# --- LOGS DE EJECUCIÓN ---
+# --- LOGS DE EJECUCION ---
 $logBuffer = @()
 $logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] INICIO DE PROCESO DE SANITIZACION EN $hostname"
 
@@ -82,7 +82,7 @@ $hasher = [System.Security.Cryptography.SHA256]::Create()
 $hashBytes = $hasher.ComputeHash($logBytes)
 $sha256Hash = (-join ($hashBytes | ForEach-Object { "{0:X2}" -f $_ }))
 
-# --- CONSTRUCCIÓN DEL HTML ---
+# --- CONSTRUCCION DEL HTML ---
 $htmlTemplate = @"
 <!DOCTYPE html>
 <html lang="es">
