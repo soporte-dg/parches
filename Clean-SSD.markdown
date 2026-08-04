@@ -1,14 +1,3 @@
-¡Excelente noticia que haya funcionado impecable!
-
-Para generar un código de barras de la cadena Hash SHA-256 en el PDF **sin depender de internet (APIs externas)** y **sin instalar librerías de terceros** en los equipos de los usuarios, la mejor estrategia es usar una librería JavaScript liviana empotrada (*JsBarcode*) directamente en el documento HTML antes de convertirlo a PDF.
-
-De esta forma, cuando Microsoft Edge genera el PDF, procesa el script y dibuja el código de barras nativamente en formato SVG de alta definición.
-
----
-
-### Script Completo: `Borrado_Seguro.ps1` (Con Código de Barras)
-
-```powershell
 # ==============================================================================
 # Script: Borrado_Seguro.ps1
 # Descripcion: Sanitizacion SSD + Generacion de Certificado PDF con Codigo de Barras
@@ -213,7 +202,7 @@ if (-not (Test-Path $edgePath)) {
 }
 
 if (Test-Path $edgePath) {
-    # Generar el PDF localmente agregando un pequeño retardo virtual para el renderizado del código de barras
+    # Generar el PDF localmente
     Start-Process -FilePath $edgePath -ArgumentList "--headless", "--disable-gpu", "--run-all-compositor-stages-before-draw", "--print-to-pdf=`"$localPdf`"", "`"$htmlFile`"" -Wait
     Remove-Item -Path $htmlFile -Force -ErrorAction SilentlyContinue
     
@@ -239,13 +228,3 @@ if (Test-Path $edgePath) {
 } else {
     Write-Warning "Microsoft Edge no fue encontrado en la ruta esperada."
 }
-
-```
-
----
-
-### Novedades en esta versión:
-
-1. **Sección 5 (Código de Barras):** Utiliza el estándar **CODE128** (el más compatible para lectura con pistolas/escáneres ópticos).
-2. **Representación visual del Hash:** Muestra las barras vectoriales junto con el texto legible del SHA-256 en la parte inferior del documento.
-3. **Bandera `--run-all-compositor-stages-before-draw`:** Garantiza que Edge espere un milisegundo a que el SVG del código de barras se dibuje completamente antes de "imprimir" la página a PDF.
