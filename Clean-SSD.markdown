@@ -1,6 +1,6 @@
 # ==============================================================================
-# Script: Clean-SSDAndTRIM-TwoPaths.ps1
-# Descripción: Sanitización SSD + Generación de PDF en Local y Red UNC
+# Script: Borrado_Seguro.ps1
+# Descripción: Sanitización SSD + Generación de Certificado PDF (Local y Red)
 # ==============================================================================
 
 if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -12,7 +12,6 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 $localFolder   = "C:\TI\Borrado_Seguro"
 $networkFolder = "\\172.16.40.250\da\Reportes\Borrado_Seguro"
 
-# Crear la carpeta local si no existe
 if (-not (Test-Path $localFolder)) { 
     New-Item -ItemType Directory -Path $localFolder -Force | Out-Null 
 }
@@ -38,14 +37,14 @@ $diskRowsHtml = ""
 
 foreach ($disk in $ssdDisks) {
     $sizeGB = [math]::Round($disk.Size / 1GB, 2)
-    $diskRowsHtml += "<tr><td>C:</td><td>$($disk.FriendlyName)</td><td>$($disk.SerialNumber)</td><td>SSD ($($disk.BusType))</td><td>$sizeGB GB</td></tr>`n"
+    $diskRowsHtml += "<tr><td>C:</td><td>$($disk.FriendlyName)</td><td>$($disk.SerialNumber)</td><td>SSD ($($disk.BusType))</td><td>$sizeGB GB</td></tr>"
 }
 
 # --- LOGS DE EJECUCIÓN ---
 $logBuffer = @()
-$logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] INICIO DE PROCESO DE SANITIZACIÓN EN $hostname"
+$logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] INICIO DE PROCESO DE SANITIZACION EN $hostname"
 
-Write-Host "Iniciando limpieza y sanitización en $hostname..." -ForegroundColor Cyan
+Write-Host "Iniciando limpieza y sanitizacion en $hostname..." -ForegroundColor Cyan
 
 # 1. Temporales
 $logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] [1/4] Limpiando archivos temporales..."
@@ -56,7 +55,7 @@ $logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] Archivos temporal
 # 2. DISM
 $logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] [2/4] Ejecutando DISM Component Cleanup..."
 Start-Process -FilePath "Dism.exe" -ArgumentList "/Online /Cleanup-Image /StartComponentCleanup /ResetBase" -Wait -NoNewWindow
-$logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] DISM Cleanup completado con éxito."
+$logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] DISM Cleanup completado con exito."
 
 # 3. Papelera
 $logBuffer += "[$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))] [3/4] Vaciando Papelera de Reciclaje..."
@@ -77,19 +76,19 @@ foreach ($vol in $volumesToTrim) {
 
 $logText = $logBuffer -join "`n"
 
-# Generar Hash SHA-256 del Log
+# Generar Hash SHA-256
 $logBytes = [System.Text.Encoding]::UTF8.GetBytes($logText)
 $hasher = [System.Security.Cryptography.SHA256]::Create()
 $hashBytes = $hasher.ComputeHash($logBytes)
 $sha256Hash = (-join ($hashBytes | ForEach-Object { "{0:X2}" -f $_ }))
 
-# --- PLANTILLA HTML ---
+# --- CONSTRUCCIÓN DEL HTML ---
 $htmlTemplate = @"
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Certificado de Sanitización y Borrado Seguro SSD</title>
+    <title>Certificado de Sanitizacion SSD</title>
     <style>
         @page { size: A4; margin: 12mm; }
         body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; margin: 0; padding: 0; font-size: 9.5pt; line-height: 1.35; }
@@ -114,15 +113,15 @@ $htmlTemplate = @"
 </head>
 <body>
     <div class="header">
-        <div class="header-title">Certificado de Sanitización de Datos</div>
+        <div class="header-title">Certificado de Sanitizacion de Datos</div>
         <div class="header-subtitle">Evidencia Auditable de Borrado Seguro en Disco SSD</div>
     </div>
 
     <div class="badge-container">
-        <span class="status-badge">&#10004; ESTADO: EJECUTADO CON ÉXITO</span>
+        <span class="status-badge">ESTADO: EJECUTADO CON EXITO</span>
     </div>
 
-    <div class="section-title">1. Información del Equipo y Sistema</div>
+    <div class="section-title">1. Informacion del Equipo y Sistema</div>
     <table>
         <tr>
             <td class="field-label">Nombre del Host:</td>
@@ -131,9 +130,9 @@ $htmlTemplate = @"
             <td>$dateStr</td>
         </tr>
         <tr>
-            <td class="field-label">Número de Serie:</td>
+            <td class="field-label">Numero de Serie:</td>
             <td>$serialNum</td>
-            <td class="field-label">Técnico Operador:</td>
+            <td class="field-label">Tecnico Operador:</td>
             <td>$currentUser</td>
         </tr>
         <tr>
@@ -142,13 +141,13 @@ $htmlTemplate = @"
         </tr>
     </table>
 
-    <div class="section-title">2. Identificación del Hardware SSD</div>
+    <div class="section-title">2. Identificacion del Hardware SSD</div>
     <table>
         <thead>
             <tr>
                 <th>Unidad</th>
                 <th>Modelo del Disco</th>
-                <th>Número de Serie del Disco</th>
+                <th>Numero de Serie del Disco</th>
                 <th>Tipo / Bus</th>
                 <th>Capacidad</th>
             </tr>
@@ -158,15 +157,15 @@ $htmlTemplate = @"
         </tbody>
     </table>
 
-    <div class="section-title">3. Estándar y Metodología Aplicada</div>
+    <div class="section-title">3. Estandar y Metodologia Aplicada</div>
     <div class="compliance-box">
-        <b>Metodología de Purga:</b> Se aplicó la instrucción nativa <b>TRIM / ReTrim</b> (NIST SP 800-88 Rev. 1 - Sanitización de Medios Flash/SSD), previa depuración del almacén de componentes de Windows (DISM) y vaciado completo de archivos temporales y papeleras.
+        <b>Metodologia de Purga:</b> Se aplico la instruccion nativa <b>TRIM / ReTrim</b> (NIST SP 800-88 Rev. 1 - Sanitizacion de Medios Flash/SSD), previa depuracion del almacen de componentes de Windows (DISM) y vaciado completo de archivos temporales y papeleras.
     </div>
 
-    <div class="section-title">4. Registro de Ejecución y Firma Digital (SHA-256)</div>
+    <div class="section-title">4. Registro de Ejecucion y Firma Digital (SHA-256)</div>
     <div class="code-block">$logText
 --------------------------------------------------------------------------------
-HASH SHA-256 DEL REGISTRO DE AUDITORÍA:
+HASH SHA-256 DEL REGISTRO DE AUDITORIA:
 $sha256Hash
 --------------------------------------------------------------------------------</div>
 
@@ -174,18 +173,18 @@ $sha256Hash
     <table class="signatures-table">
         <tr>
             <td>
-                <div class="signature-line">Firma del Técnico Responsable</div>
-                <div class="signature-subtext">Soporte Técnico / TI</div>
+                <div class="signature-line">Firma del Tecnico Responsable</div>
+                <div class="signature-subtext">Soporte Tecnico / TI</div>
             </td>
             <td>
-                <div class="signature-line">Firma de Recibido / Auditoría</div>
-                <div class="signature-subtext">Seguridad de la Información / Cumplimiento</div>
+                <div class="signature-line">Firma de Recibido / Auditoria</div>
+                <div class="signature-subtext">Seguridad de la Informacion / Cumplimiento</div>
             </td>
         </tr>
     </table>
 
     <div class="footer">
-        Este documento PDF sirve como evidencia auditable generada de forma automatizada. Válido para cumplimiento ISO 27001 / NIST 800-88.
+        Este documento PDF sirve como evidencia auditable generada de forma automatizada. Valido para cumplimiento ISO 27001 / NIST 800-88.
     </div>
 </body>
 </html>
@@ -202,19 +201,19 @@ if (-not (Test-Path $edgePath)) {
 }
 
 if (Test-Path $edgePath) {
-    # 1. Generar el PDF localmente
+    # Generar el PDF localmente
     Start-Process -FilePath $edgePath -ArgumentList "--headless", "--disable-gpu", "--print-to-pdf=`"$localPdf`"", "`"$htmlFile`"" -Wait
     Remove-Item -Path $htmlFile -Force -ErrorAction SilentlyContinue
     
     Write-Host " [1/2] PDF guardado en ruta local: $localPdf" -ForegroundColor Green
 
-    # 2. Intentar copiar el PDF a la ruta de red
+    # Intentar copiar el PDF a la red
     try {
         if (Test-Path $networkFolder) {
             Copy-Item -Path $localPdf -Destination "$networkFolder\$fileName" -Force
-            Write-Host " [2/2] Copia enviada con éxito a la red: $networkFolder\$fileName" -ForegroundColor Green
+            Write-Host " [2/2] Copia enviada con exito a la red: $networkFolder\$fileName" -ForegroundColor Green
         } else {
-            Write-Warning " [2/2] No se pudo acceder a la ruta de red '$networkFolder'. El PDF solo se conservará localmente."
+            Write-Warning " [2/2] No se pudo acceder a la ruta de red '$networkFolder'. El PDF solo se conservara localmente."
         }
     } catch {
         Write-Warning " [2/2] Error al intentar copiar el PDF a la red: $_"
@@ -222,7 +221,7 @@ if (Test-Path $edgePath) {
 
     Write-Host ""
     Write-Host "==================================================" -ForegroundColor Cyan
-    Write-Host " PROCESO Y GENERACIÓN DE EVIDENCIA FINALIZADOS    " -ForegroundColor Cyan
+    Write-Host " PROCESO Y GENERACION DE EVIDENCIA FINALIZADOS    " -ForegroundColor Cyan
     Write-Host "==================================================" -ForegroundColor Cyan
 
 } else {

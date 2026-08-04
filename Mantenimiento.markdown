@@ -150,7 +150,7 @@ echo Importante! Cierra todas las aplicaciones y archivos, antes de continuar
 pause
 xcopy /y /s "\\172.16.40.250\da\Borrado_Seguro.ps1" "C:\TI\"
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/Clean-SSD.markdown" -OutFile "C:\TI\Borrado_Seguro.ps1"
-"C:\TI\Borrado_Seguro.ps1"
+powershell -ExecutionPolicy Bypass -File "C:\TI\Borrado_Seguro.ps1"
 pause
 echo Importante! Si el borrado seguro se hace fuera de la oficina,
 echo debes enviar el archivo C:\TI\Borrado_Seguro\Certificado_<HOSTNAME>_<FECHA>.pdf por correo
