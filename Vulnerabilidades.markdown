@@ -7,19 +7,22 @@ cls
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
 powershell -Command Get-Package -Name "*7-Zip*"
-echo - Version Requerida 7-Zip 26.00 
+echo - Version Requerida 7-Zip 26.02
 echo --------------------------------------------------------------------
 powershell -Command Get-Package -Name "*GLPI*"
-echo - GLPI Agent v1.16 Debe ser desinstalado
+echo - Desinstala cualquier version instalada
 echo --------------------------------------------------------------------
 powershell -Command Get-Package -Name "*VLC*"
 echo - Version Requerida VLC 3.0.23
 echo --------------------------------------------------------------------
 powershell -Command Get-Package -Name "*Forticlient*"
-echo - Version Requerida Forticlient VPN 7.4.3.8758
+echo - Desinstala cualquier version instalada
 echo --------------------------------------------------------------------
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v DisplayVersion
 echo - Version Requerida Windows 11 25H2
+echo --------------------------------------------------------------------
+powershell -Command Get-Package -Name "*HP Click*"
+echo - Desinstala cualquier version instalada
 echo --------------------------------------------------------------------
 echo Toma nota de las versiones desactualizadas y
 pause
@@ -32,8 +35,7 @@ echo  3 - VLC
 echo  4 - Forticlient
 echo  5 - Actualizar Version de Windows
 echo  6 - Realizar Mantenimiento
-echo  7 - Instalar Portal de Empresa
-echo  8 - Lenovo System Update
+echo  7 - HP Click
 echo --------------------------------------------------------------------
 echo Introduzca el numero a continuacion y presione enter
 set /p step=
@@ -45,7 +47,6 @@ if %step% == 4 goto 4
 if %step% == 5 goto 5
 if %step% == 6 goto 6
 if %step% == 7 goto 7
-
 :1
 echo --------------------------------------------------------------------
 echo Desinstala GLPI desde Panel de Control
@@ -70,17 +71,6 @@ powershell -Command Invoke-WebRequest -Uri "https://southfront.mm.fcix.net/video
 msiexec /i C:\TI\vlc-win64.msi /quiet
 cls
 goto 0
-:5
-echo --------------------------------------------------------------------
-echo W11
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/WPCHCS.msi" -OutFile "C:\TI\WPCHCS.msi"
-msiexec /i C:\TI\WPCHCS.msi
-powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/W11IA.exe" -OutFile "C:\TI\W11IA.exe"
-"C:\TI\W11IA.exe"
-pause
-cls
-goto 0
 :4
 echo --------------------------------------------------------------------
 echo Cerrar Forticlient Automaticamente
@@ -98,116 +88,19 @@ echo --------------------------------------------------------------------
 appwiz.cpl
 pause
 cls
+goto 0
+:5
 echo --------------------------------------------------------------------
-echo Descargando FCVPN Parte 01 de 17
+echo Actualizar Version de Windows
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.001" -OutFile "C:\TI\FCVPN.7z.001"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 02 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.002" -OutFile "C:\TI\FCVPN.7z.002"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 03 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.003" -OutFile "C:\TI\FCVPN.7z.003"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 04 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.004" -OutFile "C:\TI\FCVPN.7z.004"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 05 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.005" -OutFile "C:\TI\FCVPN.7z.005"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 06 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.006" -OutFile "C:\TI\FCVPN.7z.006"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 07 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.007" -OutFile "C:\TI\FCVPN.7z.007"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 08 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.008" -OutFile "C:\TI\FCVPN.7z.008"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 09 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.009" -OutFile "C:\TI\FCVPN.7z.009"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 10 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.010" -OutFile "C:\TI\FCVPN.7z.010"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 11 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.011" -OutFile "C:\TI\FCVPN.7z.011"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 12 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.012" -OutFile "C:\TI\FCVPN.7z.012"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 13 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.013" -OutFile "C:\TI\FCVPN.7z.013"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 14 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.014" -OutFile "C:\TI\FCVPN.7z.014"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 15 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.015" -OutFile "C:\TI\FCVPN.7z.015"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 16 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.016" -OutFile "C:\TI\FCVPN.7z.016"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN Parte 17 de 17
-echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/FCVPN.7z.017" -OutFile "C:\TI\FCVPN.7z.017"
-cls
-echo --------------------------------------------------------------------
-echo FCVPN - Extrayendo Ejecutable
-echo --------------------------------------------------------------------
-"C:\Program Files\7-Zip\7z.exe" x C:\TI\FCVPN.7z.001 -oC:\TI
-del C:\TI\FCVPN.7z.001
-del C:\TI\FCVPN.7z.002
-del C:\TI\FCVPN.7z.003
-del C:\TI\FCVPN.7z.004
-del C:\TI\FCVPN.7z.005
-del C:\TI\FCVPN.7z.006
-del C:\TI\FCVPN.7z.007
-del C:\TI\FCVPN.7z.008
-del C:\TI\FCVPN.7z.009
-del C:\TI\FCVPN.7z.010
-del C:\TI\FCVPN.7z.011
-del C:\TI\FCVPN.7z.012
-del C:\TI\FCVPN.7z.013
-del C:\TI\FCVPN.7z.014
-del C:\TI\FCVPN.7z.015
-del C:\TI\FCVPN.7z.016
-del C:\TI\FCVPN.7z.017
-msiexec /i C:\TI\FortiClientVPN.msi
+powershell -ExecutionPolicy Bypass -Command "Install-Module PSWindowsUpdate -Force; Get-WindowsUpdate -MicrosoftUpdate -AcceptAll -Install -AutoReboot"
+echo ====================================================
+echo  Proceso finalizado.
+echo ====================================================
 pause
 cls
 goto 0
+:7
 :6
 echo --------------------------------------------------------------------
 echo Realizar Mantenimiento
