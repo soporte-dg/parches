@@ -10,7 +10,7 @@ echo  10c - Validar Funcionamiento de OneDrive
 echo  10d - Actualizar Windows 11
 echo  10e - Actualizaciones de Windows
 echo  10f - Antivirus, revisa que este instalado y actualizado en GLPI
-echo  10g - Instalar Portal de empresa
+echo  10g - Proceso HASH BBVA
 echo  10h - Reporte Inventario "\\172.16.40.250\da\Reportes\"
 echo  10i - Borrado Seguro Espacio Libre
 echo  0 - Regresar al menu principal
@@ -125,9 +125,21 @@ cls
 goto 10
 :10g
 echo --------------------------------------------------------------------
-echo Instalar Portal de empresa
+echo Consulta Version de Windows y Numero de serie
 echo --------------------------------------------------------------------
-powershell Start-Process ms-windows-store://pdp/?productid=9WZDNCRFJ3PZ
+pause
+winver
+cls
+powershell -Command "wmic bios get serialnumber"
+pause
+echo --------------------------------------------------------------------
+echo Obtener Hash del equipo
+echo --------------------------------------------------------------------
+powershell -Command "Set-ExecutionPolicy Unrestricted -force"
+powershell -Command "Install-Script Get-WindowsAutoPilotInfo -force"
+powershell -Command "Get-WindowsAutoPilotInfo.ps1 -OutputFile C:\TI\Usuario_Red.csv"
+powershell -Command "Get-Content "C:\TI\Usuario_Red.csv" | Out-Printer -Name "Microsoft Print to PDF""
+pause
 cls
 goto 10
 :10h
