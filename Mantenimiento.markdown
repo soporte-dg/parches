@@ -124,14 +124,14 @@ pause
 cls
 goto 10
 :10g
+cls
 echo --------------------------------------------------------------------
 echo Consulta Version de Windows y Numero de serie
 echo --------------------------------------------------------------------
-pause
-winver
-cls
 powershell -Command "wmic bios get serialnumber"
+winver
 pause
+cls
 echo --------------------------------------------------------------------
 echo Obtener Hash del equipo
 echo --------------------------------------------------------------------
