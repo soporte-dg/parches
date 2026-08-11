@@ -128,7 +128,7 @@ cls
 echo --------------------------------------------------------------------
 echo Consulta Version de Windows y Numero de serie
 echo --------------------------------------------------------------------
-powershell -Command "wmic bios get serialnumber"
+powershell -Command "Get-CimInstance Win32_Bios | Select-Object SerialNumber
 winver
 pause
 cls
