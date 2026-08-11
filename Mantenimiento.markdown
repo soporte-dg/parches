@@ -135,9 +135,23 @@ cls
 echo --------------------------------------------------------------------
 echo Obtener Hash del equipo
 echo --------------------------------------------------------------------
-powershell -Command "Set-ExecutionPolicy Unrestricted -force"
-powershell -Command "Install-Script Get-WindowsAutoPilotInfo -force"
-powershell -Command "Get-WindowsAutoPilotInfo.ps1 -OutputFile C:\TI\Usuario_Red.csv"
+winget install --id Microsoft.Powershell --source winget
+notepad "C:\TI\Get-WindowsAutoPilotInfo.ps1"
+echo <# Forzar la obtención de datos de hardware locales #> >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo $wmi = Get-CimInstance -Namespace root/cimv2/mdm/dmmap -ClassName MDM_DevDetail_Ext01 -Filter "InstanceID='Ext01' AND ParentID='./DevDetail'" >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo $serial = (Get-CimInstance -ClassName Win32_Bios).SerialNumber >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo $hash = $wmi.DeviceHardwareData >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo  >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo $args = $MyInvocation.BoundParameters >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo if ($args.ContainsKey('OutputFile')) { >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo     $outputFile = $args['OutputFile'] >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo     "[SerialNumber],[MachineGUID],[HardwareHash]`r`n$serial,,$hash" | Out-File -FilePath $outputFile -Encoding ascii -Force >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo     Write-Host "Archivo CSV generado exitosamente en: $outputFile" -ForegroundColor Green >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo } else { >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo     Write-Host "Serial: $serial" >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo     Write-Host "Hash: $hash" >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+echo } >> C:\TI\Get-WindowsAutoPilotInfo.ps1
+powershell -ExecutionPolicy Bypass -File "C:\TI\Get-WindowsAutoPilotInfo.ps1" -OutputFile "C:\TI\Usuario_Red.csv"
 powershell -Command "Get-Content "C:\TI\Usuario_Red.csv" | Out-Printer -Name "Microsoft Print to PDF""
 pause
 cls
