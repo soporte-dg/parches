@@ -136,7 +136,6 @@ echo --------------------------------------------------------------------
 echo Obtener Hash del equipo
 echo --------------------------------------------------------------------
 winget install --id Microsoft.Powershell --source winget
-notepad "C:\TI\Get-WindowsAutoPilotInfo.ps1"
 echo <# Forzar la obtención de datos de hardware locales #> >> C:\TI\Get-WindowsAutoPilotInfo.ps1
 echo $wmi = Get-CimInstance -Namespace root/cimv2/mdm/dmmap -ClassName MDM_DevDetail_Ext01 -Filter "InstanceID='Ext01' AND ParentID='./DevDetail'" >> C:\TI\Get-WindowsAutoPilotInfo.ps1
 echo $serial = (Get-CimInstance -ClassName Win32_Bios).SerialNumber >> C:\TI\Get-WindowsAutoPilotInfo.ps1
