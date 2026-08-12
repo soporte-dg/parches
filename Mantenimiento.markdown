@@ -136,8 +136,9 @@ echo --------------------------------------------------------------------
 echo Obtener Hash del equipo
 echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/Get-WindowsAutoPilotInfo.markdown" -OutFile "C:\TI\Get-WindowsAutoPilotInfo.ps1"
-powershell -ExecutionPolicy Bypass -Command "& 'C:\TI\Get-WindowsAutoPilotInfo.ps1' -OutputFile 'C:\TI\Usuario_Red.csv'"
-powershell -Command "Get-Content "C:\TI\Usuario_Red.csv" | Out-Printer -Name "Microsoft Print to PDF""
+mdmdiagnosticstool.exe -area Autopilot -zip C:\TI\AutopilotLogs.zip
+"C:\Program Files\7-Zip\7z.exe" x "C:\TI\AutopilotLogs.zip" -o "C:\TI\AutopilotLogs"
+explorer "C:\TI\AutopilotLogs"
 pause
 cls
 goto 10
