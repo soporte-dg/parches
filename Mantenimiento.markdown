@@ -137,7 +137,7 @@ echo Obtener Hash del equipo
 echo --------------------------------------------------------------------
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/Get-WindowsAutoPilotInfo.markdown" -OutFile "C:\TI\Get-WindowsAutoPilotInfo.ps1"
 mdmdiagnosticstool.exe -area Autopilot -zip C:\TI\AutopilotLogs.zip
-"C:\Program Files\7-Zip\7z.exe" x "C:\TI\AutopilotLogs.zip" -o "C:\TI\AutopilotLogs"
+"C:\Program Files\7-Zip\7z.exe" x "C:\TI\AutopilotLogs.zip" -o"C:\TI\AutopilotLogs"
 explorer "C:\TI\AutopilotLogs"
 pause
 cls
