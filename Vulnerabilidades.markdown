@@ -11,31 +11,25 @@ powershell -Command Confirm-SecureBootUEFI
 echo Si el resultado es True, esta activado, si es false, hay que activarlo
 echo --------------------------------------------------------------------
 pause
-@echo off
-chcp 65001 >nul
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
-
-powershell -NoProfile -ExecutionPolicy Bypass -Command "^
-$apps = @('7-Zip', 'GLPI', 'VLC', 'FortiClient'); ^
-foreach ($app in $apps) { ^
-    $pkg = Get-Package -Name \"*$app*\" -ErrorAction SilentlyContinue; ^
-    if ($pkg) { ^
-        Write-Host \"[INSTALADO] $($pkg.Name) - Versión: $($pkg.Version)\"; ^
-    } else { ^
-        Write-Host \"[NO PRESENTES] No se encontró $app instalado\"; ^
-    } ^
-}"
-
-echo - Notas de versión:
-echo   * 7-Zip requerida: 26.02
-echo   * VLC requerida: 3.0.23
-echo   * GLPI / FortiClient: Desinstalar cualquier versión
+powershell -Command Get-Package -Name "*7-Zip*"
+echo - Version Requerida 7-Zip 26.02
+echo --------------------------------------------------------------------
+powershell -Command Get-Package -Name "*GLPI*"
+echo - Desinstala cualquier version instalada
+echo --------------------------------------------------------------------
+powershell -Command Get-Package -Name "*VLC*"
+echo - Version Requerida VLC 3.0.23
+echo --------------------------------------------------------------------
+powershell -Command Get-Package -Name "*Forticlient*"
+echo - Desinstala cualquier version instalada
 echo --------------------------------------------------------------------
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v DisplayVersion
-echo - Versión Requerida: Windows 11 25H2
+echo - Version Requerida Windows 11 25H2
 echo --------------------------------------------------------------------
-pause
+powershell -Command Get-Package -Name "*HP Click*"
+echo - Desinstala cualquier version instalada
 echo --------------------------------------------------------------------
 echo Toma nota de las versiones desactualizadas y
 pause
