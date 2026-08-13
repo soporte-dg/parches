@@ -102,9 +102,13 @@ cls
 echo --------------------------------------------------------------------
 echo Actualizar Windows
 echo --------------------------------------------------------------------
+reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v DisplayVersion & reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild & reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v UBR
+pause
 powershell -Command "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; Install-Module -Name PSWindowsUpdate -Force -Confirm:$false; Import-Module PSWindowsUpdate; Add-WUServiceManager -ServiceID "7971f918-a847-4430-9279-4a52d1efe18d" -Confirm:$false; Get-WindowsUpdate -MicrosoftUpdate -AcceptAll -Install -AutoReboot"
 pause
 powershell -Command "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; Install-Module -Name PSWindowsUpdate -Force -Confirm:$false; Import-Module PSWindowsUpdate; Install-WindowsUpdate -AcceptAll -Install -AutoReboot"
+pause
+reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v DisplayVersion & reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild & reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v UBR
 pause
 cls
 goto 10
