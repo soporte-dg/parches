@@ -4,6 +4,10 @@ reg delete HKEY_CLASSES_ROOT\search-ms /f
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/Mantenimiento.markdown" -OutFile "C:\TI\Mantenimiento.bat"
 cls
 :0
+echo Revision de SecureBoot
+echo --------------------------------------------------------------------
+powershell -Command Confirm-SecureBootUEFI
+pause
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
 powershell -Command Get-Package -Name "*7-Zip*"
