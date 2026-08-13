@@ -9,26 +9,36 @@ echo Revision de SecureBoot
 echo --------------------------------------------------------------------
 powershell -Command Confirm-SecureBootUEFI
 echo Si el resultado es True, esta activado, si es false, hay que activarlo
+echo --------------------------------------------------------------------
 pause
+@echo off
+chcp 65001 >nul
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
-powershell -Command Get-Package -Name "*7-Zip*"
-echo - Version Requerida 7-Zip 26.02
-echo --------------------------------------------------------------------
-powershell -Command Get-Package -Name "*GLPI*"
-echo - Desinstala cualquier version instalada
-echo --------------------------------------------------------------------
-powershell -Command Get-Package -Name "*VLC*"
-echo - Version Requerida VLC 3.0.23
-echo --------------------------------------------------------------------
-powershell -Command Get-Package -Name "*Forticlient*"
-echo - Desinstala cualquier version instalada
+
+powershell -NoProfile -ExecutionPolicy Bypass -Command "^
+$targets = @('7-Zip', 'GLPI', 'VLC', 'FortiClient'); ^
+$uninstallPaths = @( ^
+    'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*', ^
+    'HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*' ^
+); ^
+foreach ($target in $targets) { ^
+    $found = Get-ItemProperty $uninstallPaths -ErrorAction SilentlyContinue | ^
+             Where-Object { $_.DisplayName -like \"*$target*\" }; ^
+    if ($found) { ^
+        foreach ($item in $found) { ^
+            Write-Host \"[+] $($item.DisplayName) | Versión: $($item.DisplayVersion)\"; ^
+        } ^
+    } else { ^
+        Write-Host \"[-] $target: No instalado o no detectado\"; ^
+    } ^
+}"
+
 echo --------------------------------------------------------------------
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v DisplayVersion
-echo - Version Requerida Windows 11 25H2
+echo - Versión Requerida: Windows 11 25H2
 echo --------------------------------------------------------------------
-powershell -Command Get-Package -Name "*HP Click*"
-echo - Desinstala cualquier version instalada
+pause
 echo --------------------------------------------------------------------
 echo Toma nota de las versiones desactualizadas y
 pause
