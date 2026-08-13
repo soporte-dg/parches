@@ -17,23 +17,20 @@ echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
 
 powershell -NoProfile -ExecutionPolicy Bypass -Command "^
-$targets = @('7-Zip', 'GLPI', 'VLC', 'FortiClient'); ^
-$uninstallPaths = @( ^
-    'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*', ^
-    'HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*' ^
-); ^
-foreach ($target in $targets) { ^
-    $found = Get-ItemProperty $uninstallPaths -ErrorAction SilentlyContinue | ^
-             Where-Object { $_.DisplayName -like \"*$target*\" }; ^
-    if ($found) { ^
-        foreach ($item in $found) { ^
-            Write-Host \"[+] $($item.DisplayName) | Versión: $($item.DisplayVersion)\"; ^
-        } ^
+$apps = @('7-Zip', 'GLPI', 'VLC', 'FortiClient'); ^
+foreach ($app in $apps) { ^
+    $pkg = Get-Package -Name \"*$app*\" -ErrorAction SilentlyContinue; ^
+    if ($pkg) { ^
+        Write-Host \"[INSTALADO] $($pkg.Name) - Versión: $($pkg.Version)\"; ^
     } else { ^
-        Write-Host \"[-] $target: No instalado o no detectado\"; ^
+        Write-Host \"[NO PRESENTES] No se encontró $app instalado\"; ^
     } ^
 }"
 
+echo - Notas de versión:
+echo   * 7-Zip requerida: 26.02
+echo   * VLC requerida: 3.0.23
+echo   * GLPI / FortiClient: Desinstalar cualquier versión
 echo --------------------------------------------------------------------
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v DisplayVersion
 echo - Versión Requerida: Windows 11 25H2
