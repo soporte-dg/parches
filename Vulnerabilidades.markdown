@@ -4,9 +4,11 @@ reg delete HKEY_CLASSES_ROOT\search-ms /f
 powershell -Command Invoke-WebRequest -Uri "https://raw.githubusercontent.com/soporte-dg/parches/refs/heads/main/Mantenimiento.markdown" -OutFile "C:\TI\Mantenimiento.bat"
 cls
 :0
+echo --------------------------------------------------------------------
 echo Revision de SecureBoot
 echo --------------------------------------------------------------------
 powershell -Command Confirm-SecureBootUEFI
+echo Si el resultado es True, esta activado, si es false, hay que activarlo
 pause
 echo Resumen de Versiones de Software
 echo --------------------------------------------------------------------
