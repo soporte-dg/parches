@@ -7,12 +7,11 @@ echo --------------------------------------------------------------------
 echo  10a - Reporte Historial de Navegacion, Apps y Archivos No Aut.
 echo  10b - Ejecutar limpieza de sistema operativo
 echo  10c - Validar Funcionamiento de OneDrive
-echo  10d - Actualizar Windows 11
-echo  10e - Actualizaciones de Windows
-echo  10f - Antivirus, revisa que este instalado y actualizado en GLPI
-echo  10g - Proceso HASH BBVA
-echo  10h - Reporte Inventario "\\172.16.40.250\da\Reportes\"
-echo  10i - Borrado Seguro Espacio Libre
+echo  10d - Actualizar Windows
+echo  10e - Mantenimiento archivo Hosts
+echo  10f - Proceso HASH BBVA
+echo  10g - Reporte Inventario "\\172.16.40.250\da\Reportes\"
+echo  10h - Borrado Seguro Espacio Libre
 echo  0 - Regresar al menu principal
 echo --------------------------------------------------------------------
 echo Introduzca el numero a continuacion y presione enter
@@ -26,7 +25,6 @@ if %step% == 10e goto 10e
 if %step% == 10f goto 10f
 if %step% == 10g goto 10g
 if %step% == 10h goto 10h
-if %step% == 10i goto 10i
 if %step% == 0 goto 0
 :10a
 cls
@@ -50,6 +48,7 @@ echo %date% >> C:\TI\%computername%_No_Auth_Files.txt
 echo -------------------------------------------------------------------- >> C:\TI\%computername%_No_Auth_Files.txt
 echo Instaladores, Portables o Ejecutables >> C:\TI\%computername%_No_Auth_Files.txt
 dir "C:\Users\*.exe" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
+dir "C:\Users\*.msi" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
 echo -------------------------------------------------------------------- >> C:\TI\%computername%_No_Auth_Files.txt
 echo Archivos Audio >> C:\TI\%computername%_No_Auth_Files.txt
 dir "C:\Users\*.mp3" /s /b /a-d | findstr /v /i "AppData" >> C:\TI\%computername%_No_Auth_Files.txt
@@ -99,31 +98,24 @@ pause
 cls
 goto 10
 :10d
+cls
 echo --------------------------------------------------------------------
-powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/WPCHCS.msi" -OutFile "C:\TI\WPCHCS.msi"
-msiexec /i C:\TI\WPCHCS.msi
-powershell -Command Invoke-WebRequest -Uri "https://github.com/soporte-dg/parches/raw/refs/heads/main/W11IA.exe" -OutFile "C:\TI\W11IA.exe"
-"C:\TI\W11IA.exe"
+echo Actualizar Windows
+echo --------------------------------------------------------------------
+powershell -Command "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; Install-Module -Name PSWindowsUpdate -Force -Confirm:$false; Import-Module PSWindowsUpdate; Install-WindowsUpdate -AcceptAll -Install -AutoReboot"
 pause
 cls
 goto 10
 :10e
-echo Buscar actualizaciones del Sistema Operativo
-pause
-wuauclt.exe /updatenow
-pause
-echo Buscar e Instalar actualizaciones opcionales
-powershell Start-Process ms-settings:windowsupdate-optionalupdates
+cls
+echo --------------------------------------------------------------------
+echo Mantenimiento archivo Hosts
+echo --------------------------------------------------------------------
+xcopy /y /s "\\172.16.40.250\da\Hosts.bat" "C:\TI\"
+C:\TI\Hosts.bat
 cls
 goto 10
 :10f
-cls
-echo --------------------------------------------------------------------
-echo Revisa que el antivirus este instalado y actualizado en GLPI
-pause
-cls
-goto 10
-:10g
 cls
 echo --------------------------------------------------------------------
 echo Consulta Version de Windows y Numero de serie
@@ -142,7 +134,7 @@ explorer "C:\TI\AutopilotLogs"
 pause
 cls
 goto 10
-:10h
+:10g
 echo --------------------------------------------------------------------
 echo Reporte Inventario "\\172.16.40.250\da\Reportes\"
 echo --------------------------------------------------------------------
@@ -153,7 +145,7 @@ dir C:\Users\ >> \\172.16.40.250\da\Reportes\Inv_Fisico.csv
 echo -------------------------------------------------------------------- >> \\172.16.40.250\da\Reportes\Inv_Fisico.csv
 cls
 goto 10
-:10i
+:10h
 cls
 echo ----------------------------------------------------------------
 echo Borrado Seguro de Espacio Libre
