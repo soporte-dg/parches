@@ -126,6 +126,11 @@ goto 10
 :10f
 cls
 echo --------------------------------------------------------------------
+echo Revision de SecureBoot
+echo --------------------------------------------------------------------
+powershell -Command Confirm-SecureBootUEFI
+echo Si es False, hay que activarlo desde la Bios
+echo --------------------------------------------------------------------
 echo Consulta Version de Windows y Numero de serie
 echo --------------------------------------------------------------------
 powershell -Command "Get-CimInstance Win32_Bios | Select-Object SerialNumber
