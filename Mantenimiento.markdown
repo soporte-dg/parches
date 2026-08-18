@@ -98,6 +98,7 @@ pause
 cls
 goto 10
 :10d
+mkdir "C:\TI\packages"
 cls
 echo --------------------------------------------------------------------
 echo Actualizar Windows
