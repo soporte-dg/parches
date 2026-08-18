@@ -105,9 +105,8 @@ echo --------------------------------------------------------------------
 echo Version Actual
 ver
 pause
-powershell -Command "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; Install-Module -Name PSWindowsUpdate -Force -Confirm:$false; Import-Module PSWindowsUpdate; Add-WUServiceManager -ServiceID "7971f918-a847-4430-9279-4a52d1efe18d" -Confirm:$false; Get-WindowsUpdate -MicrosoftUpdate -AcceptAll -Install -AutoReboot"
-pause
-powershell -Command "Set-ExecutionPolicy RemoteSigned -Scope Process -Force; Install-Module -Name PSWindowsUpdate -Force -Confirm:$false; Import-Module PSWindowsUpdate; Install-WindowsUpdate -AcceptAll -Install -AutoReboot"
+powershell -Command Invoke-WebRequest -Uri "https://catalog.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/f9ed9ee7-ce58-4df4-8262-e83f28b9899f/public/windows11.0-kb5121000-arm64_882c5ac873361041fde45f568871b39d449e6064.msu" -OutFile "C:\ti\packages\windows11.0-kb5121000-arm64_882c5ac873361041fde45f568871b39d449e6064.msu"
+DISM /Online /Add-Package /PackagePath:c:\ti\packages\windows11.0-kb5121000-arm64_882c5ac873361041fde45f568871b39d449e6064.msu
 echo --------------------------------------------------------------------
 echo Version Actual
 ver
